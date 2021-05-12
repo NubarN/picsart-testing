@@ -29,7 +29,7 @@ public class FirstTest {
     }
 
     public static void clickLoginButton(){
-        WebElement loginBut =  chromeDriver.findElement(By.cssSelector("[data-test='headerAuth-signInBtn pa-uiLib-headerAuth-authBtn']"));
+        WebElement loginBut = chromeDriver.findElement(By.cssSelector("[data-test='headerAuth-signInBtn pa-uiLib-headerAuth-authBtn']"));
         loginBut.click();
     }
 
