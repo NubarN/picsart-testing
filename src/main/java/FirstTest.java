@@ -12,19 +12,38 @@ public class FirstTest {
     public static ChromeDriver chromeDriver = null;
 
     public static void main(String[]args){
-        System.setProperty("webdriver.chrome.driver","/Users/nubar/Downloads/chromedriver");
-        chromeDriver = new ChromeDriver();
-        //chromeDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        chromeDriver.get("http://picsartstage2.com/");
-        WebElement loginBut =  chromeDriver.findElement(By.cssSelector("[data-test='headerAuth-signInBtn pa-uiLib-headerAuth-authBtn']"));
-        loginBut.click();
+
+        onStart();
+        clickLoginButton();
+
         new WebDriverWait(chromeDriver, 10).until(ExpectedConditions.visibilityOfElementLocated(By.name("username")));
-        login("Nubar", "nubar123");
+        WebElement clickLogIn = chromeDriver.findElement(By.cssSelector("[class*='pa-uiLib-authentication-btn primary']"));
+        login("Nubar", "nubar123",clickLogIn);
 
     }
 
-    public static void login(String name, String password){
+    public static void onStart(){
+        System.setProperty("webdriver.chrome.driver","/Users/nubar/Downloads/chromedriver");
+        chromeDriver = new ChromeDriver();
+        chromeDriver.get("http://picsartstage2.com/");
+    }
+
+    public static void clickLoginButton(){
+        WebElement loginBut =  chromeDriver.findElement(By.cssSelector("[data-test='headerAuth-signInBtn pa-uiLib-headerAuth-authBtn']"));
+        loginBut.click();
+    }
+
+    public static void clickAction(WebElement element){
+        new WebDriverWait(chromeDriver, 10).until(ExpectedConditions.visibilityOf(element));
+        element.click();
+    }
+
+    public static void login(String name, String password, WebElement element) {
         chromeDriver.findElement(By.name("username")).sendKeys(name);
         chromeDriver.findElement(By.name("password")).sendKeys(password);
+        if (element.isDisplayed() && element.isEnabled()) {
+            System.out.println("Clicking.....");
+            clickAction(element);
+        }
     }
 }
