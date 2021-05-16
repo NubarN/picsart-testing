@@ -21,7 +21,7 @@ public class TheFirstTest {
 //    public void tearDown() {
 //        getDriver().quit();
 //    }
-    public void test2(){}
+
     @Test
     public void fistTest() throws InterruptedException {
         LoginPage loginPage = new LoginPage();
