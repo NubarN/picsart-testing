@@ -4,7 +4,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 import static setup.DriverSetup.getDriver;
 
@@ -41,6 +41,21 @@ public class TheFirstTest {
         getDriver().manage().addCookie(cookie);
         getDriver().navigate().refresh();
 
-        assertTrue(loginPage.isUserLoggedIn(), "User eas not logged in!");
+        assertTrue(loginPage.isUserLoggedIn(), "User is not logged in!");
+    }
+
+    @Test
+    public void goToEditor() {
+        LoginPage loginPage = new LoginPage();
+
+        Cookie cookie = new Cookie("user_key", "d02e1fab-8630-4f25-a106-9969ab867447");
+        getDriver().manage().addCookie(cookie);
+        getDriver().navigate().refresh();
+
+        assertTrue(loginPage.isUserLoggedIn(), "User is not logged in!");
+
+        EditorPage editorPage = loginPage.clickOnInstagramButton();
+        assertEquals(editorPage.getUrl(),getDriver().getCurrentUrl(),"Did not navigate to [Editor Page] by clicking [instaStoryButton]");
+        editorPage = editorPage.clickOnFitTab();
     }
 }
