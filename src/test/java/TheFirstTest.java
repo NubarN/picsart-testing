@@ -55,7 +55,7 @@ public class TheFirstTest {
         assertTrue(loginPage.isUserLoggedIn(), "User is not logged in!");
 
         EditorPage editorPage = loginPage.clickOnInstagramButton();
-        assertEquals(editorPage.getUrl(),getDriver().getCurrentUrl(),"Did not navigate to [Editor Page] by clicking [instaStoryButton]");
+        assertEquals(editorPage.getUrl(),getDriver().getCurrentUrl(),"did not go to the editor page");
         editorPage = editorPage.clickOnFitTab();
     }
 }
