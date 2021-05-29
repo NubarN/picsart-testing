@@ -1,24 +1,23 @@
+package pageObject;
+
+import helper.WaitHelper;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import static setup.DriverSetup.getDriver;
+import pageObject.base.BasePage;
 
-import java.sql.Driver;
 
-public class LoginPage extends BasePage{
+public class LoginPage extends BasePage {
 
     private final By usernameFieldLocation = By.name("username");
     private final By passwordFieldLocation = By.name("password");
     private final By loginButtonLocation = By.cssSelector("[data-test='headerAuth-signInBtn pa-uiLib-headerAuth-authBtn']");
     private final By signInButtonLocation = By.cssSelector(".pa-uiLib-authentication-btn.primary");
     private final By avatarLocation = By.cssSelector(".pa-uiLib-headerProfileInfo-avatar");
-    private final By instagramStoryButton = By.cssSelector("[data-test='insta-story']");
-
 
     public LoginPage () {
-        open("https://picsart.com/");
+        open(getUrl()+"/create");
     }
 
     @Override
@@ -49,14 +48,8 @@ public class LoginPage extends BasePage{
     }
 
     public boolean isUserLoggedIn() {
-        WebElement avatarIcon = new WebDriverWait(driver, 10)
-                .until(ExpectedConditions.visibilityOfElementLocated((avatarLocation)));
+        WebElement avatarIcon = WaitHelper.waitUntilElementIsVisible(avatarLocation);
         return avatarIcon.isDisplayed();
-    }
-
-    public EditorPage clickOnInstagramButton() {
-        clickAndOpenNewTab(instagramStoryButton);
-        return new EditorPage("templateSize=insta_story");
     }
 
 }
